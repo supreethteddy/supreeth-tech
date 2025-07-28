@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ChevronDown, ArrowRight, Play, Users, Trophy, Zap, Building, Sparkles, Code, Lightbulb, Rocket, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navigation from "@/components/Navigation";
 import ContactForm from "@/components/ContactForm";
+import InteractiveLightBackground from "@/components/InteractiveLightBackground";
 
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -98,41 +98,16 @@ const Index = () => {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Background */}
+        {/* Interactive Light Background */}
+        <InteractiveLightBackground />
+        
+        {/* Base Background */}
         <div 
           className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"
           style={{
             transform: `translateY(${scrollY * 0.5}px)`,
           }}
         />
-        
-        {/* Floating Elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div 
-            className="absolute w-2 h-2 bg-blue-400 rounded-full opacity-20 animate-pulse"
-            style={{
-              left: `${20 + (mousePosition.x * 0.01)}%`,
-              top: `${30 + (mousePosition.y * 0.01)}%`,
-              transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
-            }}
-          />
-          <div 
-            className="absolute w-3 h-3 bg-purple-400 rounded-full opacity-15 animate-pulse"
-            style={{
-              right: `${15 + (mousePosition.x * 0.008)}%`,
-              top: `${50 + (mousePosition.y * 0.008)}%`,
-              transform: `translate(${-mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`,
-            }}
-          />
-          <div 
-            className="absolute w-1 h-1 bg-green-400 rounded-full opacity-25 animate-pulse"
-            style={{
-              left: `${70 + (mousePosition.x * 0.012)}%`,
-              bottom: `${20 + (mousePosition.y * 0.012)}%`,
-              transform: `translate(${mousePosition.x * 0.01}px, ${-mousePosition.y * 0.01}px)`,
-            }}
-          />
-        </div>
         
         <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
           <div className="fade-in">
@@ -153,13 +128,13 @@ const Index = () => {
               </div>
             </div>
 
-            <h1 className="hero-text mb-6 animate-fade-in">
+            <h1 className="hero-text mb-6 animate-fade-in relative z-10">
               I turn ideas into <span className="gradient-text">AI empires</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in delay-200">
+            <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in delay-200 relative z-10">
               From 500+ AI projects to launching 100+ startups — I help you build and scale your AI company fast.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in delay-400">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in delay-400 relative z-10">
               <Button 
                 size="lg" 
                 className="text-lg px-8 py-6 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl group"
@@ -179,7 +154,7 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
           <ChevronDown className="h-8 w-8 text-gray-400 transition-colors duration-300 hover:text-blue-500" />
         </div>
       </section>
