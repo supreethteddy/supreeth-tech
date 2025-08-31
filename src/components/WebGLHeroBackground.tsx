@@ -10,6 +10,7 @@ declare global {
     VANTA: {
       NET: (options: any) => VantaEffect;
     };
+    THREE: any;
   }
 }
 
@@ -20,13 +21,27 @@ const WebGLHeroBackground: React.FC = () => {
   useEffect(() => {
     const loadVanta = async () => {
       try {
-        // Dynamically import Three.js
-        await import('three');
+        console.log('Starting Vanta initialization...');
         
-        // Dynamically import Vanta
-        const vantaModule = await import('vanta/dist/vanta.net.min.js');
+        // First, dynamically import and set up Three.js
+        const THREE = await import('three');
+        console.log('Three.js loaded:', !!THREE);
+        
+        // Make Three.js available globally for Vanta
+        window.THREE = THREE;
+        
+        // Small delay to ensure Three.js is fully available
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Then import Vanta
+        await import('vanta/dist/vanta.net.min.js');
+        console.log('Vanta loaded, VANTA available:', !!window.VANTA);
+        
+        // Another small delay for Vanta initialization
+        await new Promise(resolve => setTimeout(resolve, 100));
         
         if (vantaRef.current && window.VANTA?.NET) {
+          console.log('Initializing Vanta effect...');
           vantaEffect.current = window.VANTA.NET({
             el: vantaRef.current,
             mouseControls: true,
@@ -37,24 +52,38 @@ const WebGLHeroBackground: React.FC = () => {
             scale: 1.00,
             scaleMobile: 0.8,
             color: 0x00ff88,  // Alien green
-            backgroundColor: 0x000000,
-            backgroundAlpha: 0.0,  // Transparent background
+            backgroundColor: 0x111111,  // Dark background instead of black
+            backgroundAlpha: 0.3,  // Semi-transparent instead of fully transparent
             points: 8.00,
             maxDistance: 25.00,
             spacing: 18.00,
             showDots: true
           });
+          console.log('Vanta effect created:', !!vantaEffect.current);
+        } else {
+          console.error('Vanta initialization failed - missing dependencies');
         }
       } catch (error) {
-        console.warn('Failed to load Vanta.NET:', error);
+        console.error('Failed to load Vanta.NET:', error);
+        // Fallback: show a subtle animated background
+        if (vantaRef.current) {
+          vantaRef.current.style.background = 'radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 70%)';
+          vantaRef.current.style.animation = 'pulse 4s ease-in-out infinite';
+        }
       }
     };
 
-    loadVanta();
+    // Small delay before starting to ensure DOM is ready
+    const timeoutId = setTimeout(loadVanta, 100);
 
     return () => {
+      clearTimeout(timeoutId);
       if (vantaEffect.current) {
-        vantaEffect.current.destroy();
+        try {
+          vantaEffect.current.destroy();
+        } catch (error) {
+          console.warn('Error destroying Vanta effect:', error);
+        }
         vantaEffect.current = null;
       }
     };
