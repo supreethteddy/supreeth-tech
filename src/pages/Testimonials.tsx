@@ -1,11 +1,12 @@
-
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Play, Image, Search, Filter, Star, Building, Calendar } from "lucide-react";
+import { Star, Building } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import FeaturedTestimonials from "@/components/FeaturedTestimonials";
+import TestimonialFilters from "@/components/TestimonialFilters";
+import TestimonialCard from "@/components/TestimonialCard";
 
 interface Testimonial {
   id: string;
@@ -88,6 +89,7 @@ const Testimonials = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndustry, setSelectedIndustry] = useState("All");
   const [selectedMediaType, setSelectedMediaType] = useState("All");
+  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
 
   const industries = ["All", ...Array.from(new Set(mockTestimonials.map(t => t.industry)))];
   const mediaTypes = ["All", "Image", "Video"];
@@ -104,231 +106,192 @@ const Testimonials = () => {
     return matchesSearch && matchesIndustry && matchesMediaType;
   });
 
-  const MediaDisplay = ({ testimonial }: { testimonial: Testimonial }) => {
-    if (testimonial.mediaType === 'video') {
-      return (
-        <div className="relative">
-          <img 
-            src={testimonial.thumbnailUrl || testimonial.mediaUrl} 
-            alt={`${testimonial.projectTitle} preview`}
-            className="w-full h-48 object-cover rounded-lg"
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-black/50 rounded-full p-3">
-              <Play className="w-8 h-8 text-white" />
-            </div>
-          </div>
-        </div>
-      );
-    }
-    
-    return (
-      <img 
-        src={testimonial.mediaUrl} 
-        alt={testimonial.projectTitle}
-        className="w-full h-48 object-cover rounded-lg"
-      />
-    );
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setSelectedIndustry("All");
+    setSelectedMediaType("All");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <Navigation />
       
-      {/* Header Section */}
-      <div className="pt-20 pb-12 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* Enhanced Header Section */}
+      <div className="pt-20 pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-purple-600/90"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 relative">
           <div className="text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Success Stories & Testimonials
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
+              Success Stories & 
+              <span className="block gradient-text bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
+                Testimonials
+              </span>
             </h1>
-            <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-              Discover how our subscribers built successful AI companies and transformed their businesses
+            <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto animate-fade-in delay-200">
+              Discover how our subscribers built successful AI companies and transformed their businesses with real results
             </p>
             
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
-              <div className="text-center">
-                <div className="text-3xl font-bold">150+</div>
-                <div className="text-blue-100">Companies Launched</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold">$50M+</div>
-                <div className="text-blue-100">Total Funding Raised</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold">25+</div>
-                <div className="text-blue-100">Industries Served</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold">98%</div>
-                <div className="text-blue-100">Success Rate</div>
-              </div>
+            {/* Enhanced Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
+              {[
+                { number: "150+", label: "Companies Launched", delay: "delay-300" },
+                { number: "$50M+", label: "Total Funding Raised", delay: "delay-400" },
+                { number: "25+", label: "Industries Served", delay: "delay-500" },
+                { number: "98%", label: "Success Rate", delay: "delay-600" }
+              ].map((stat, index) => (
+                <div key={index} className={`text-center animate-fade-in ${stat.delay}`}>
+                  <div className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
+                    {stat.number}
+                  </div>
+                  <div className="text-blue-100 text-sm md:text-base">{stat.label}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Filters Section */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search by name, company, or project..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          
-          <select
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            value={selectedIndustry}
-            onChange={(e) => setSelectedIndustry(e.target.value)}
-          >
-            {industries.map(industry => (
-              <option key={industry} value={industry}>{industry}</option>
-            ))}
-          </select>
-          
-          <select
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            value={selectedMediaType}
-            onChange={(e) => setSelectedMediaType(e.target.value)}
-          >
-            {mediaTypes.map(type => (
-              <option key={type} value={type}>{type}</option>
-            ))}
-          </select>
+      <div className="max-w-7xl mx-auto px-6 -mt-8 relative z-10">
+        {/* Featured Testimonials Carousel */}
+        <FeaturedTestimonials 
+          testimonials={mockTestimonials} 
+          onTestimonialClick={setSelectedTestimonial}
+        />
+
+        {/* Enhanced Filters */}
+        <TestimonialFilters
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          selectedIndustry={selectedIndustry}
+          onIndustryChange={setSelectedIndustry}
+          selectedMediaType={selectedMediaType}
+          onMediaTypeChange={setSelectedMediaType}
+          industries={industries}
+          mediaTypes={mediaTypes}
+          onClearFilters={handleClearFilters}
+        />
+
+        {/* Results Count */}
+        <div className="mb-6">
+          <p className="text-gray-600">
+            Showing <span className="font-semibold">{filteredTestimonials.length}</span> success stories
+          </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {filteredTestimonials.map((testimonial) => (
-            <Dialog key={testimonial.id}>
-              <DialogTrigger asChild>
-                <Card className="cursor-pointer hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <CardTitle className="text-lg font-semibold text-gray-900 mb-1">
-                          {testimonial.projectTitle}
-                        </CardTitle>
-                        <div className="flex items-center gap-2 mb-2">
-                          <Building className="w-4 h-4 text-gray-500" />
-                          <span className="text-sm text-gray-600">{testimonial.company}</span>
-                        </div>
-                      </div>
-                      <Badge variant="secondary" className="ml-2">
-                        {testimonial.mediaType === 'video' ? <Play className="w-3 h-3 mr-1" /> : <Image className="w-3 h-3 mr-1" />}
-                        {testimonial.mediaType}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent>
-                    <MediaDisplay testimonial={testimonial} />
-                    
-                    <div className="mt-4">
-                      <div className="flex items-center gap-1 mb-2">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
-                          />
-                        ))}
-                      </div>
-                      
-                      <p className="text-gray-600 text-sm mb-3 line-clamp-3">
-                        {testimonial.description}
-                      </p>
-                      
-                      <div className="flex items-center justify-between text-xs text-gray-500">
-                        <span>{testimonial.name}, {testimonial.position}</span>
-                        <span>{new Date(testimonial.date).toLocaleDateString()}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </DialogTrigger>
+        {/* Enhanced Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {filteredTestimonials.map((testimonial, index) => (
+            <TestimonialCard
+              key={testimonial.id}
+              testimonial={testimonial}
+              index={index}
+              onClick={() => setSelectedTestimonial(testimonial)}
+            />
+          ))}
+        </div>
+
+        {/* Enhanced CTA Section */}
+        <div className="glass-effect rounded-3xl p-12 text-center mb-16 border border-white/20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
+          <div className="relative">
+            <h2 className="text-4xl font-bold mb-6 gradient-text">Ready to Build Your Success Story?</h2>
+            <p className="text-gray-600 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+              Join hundreds of entrepreneurs who have transformed their ideas into successful AI companies with our guidance and mentorship.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-6 text-lg">
+                Start Your AI Company Journey
+              </Button>
+              <Button size="lg" variant="outline" className="rounded-full border-2 px-8 py-6 text-lg hover:bg-gray-50">
+                Submit Your Success Story
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Enhanced Dialog */}
+      {selectedTestimonial && (
+        <Dialog open={!!selectedTestimonial} onOpenChange={() => setSelectedTestimonial(null)}>
+          <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto bg-white/95 backdrop-blur-sm border-0">
+            <DialogHeader>
+              <DialogTitle className="text-3xl font-bold text-gray-900 mb-2">
+                {selectedTestimonial.projectTitle}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                {selectedTestimonial.mediaType === 'video' ? (
+                  <video 
+                    controls 
+                    className="w-full rounded-2xl shadow-2xl"
+                    poster={selectedTestimonial.thumbnailUrl}
+                  >
+                    <source src={selectedTestimonial.mediaUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img 
+                    src={selectedTestimonial.mediaUrl} 
+                    alt={selectedTestimonial.projectTitle}
+                    className="w-full rounded-2xl shadow-2xl"
+                  />
+                )}
+              </div>
               
-              <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle className="text-2xl font-bold text-gray-900">
-                    {testimonial.projectTitle}
-                  </DialogTitle>
-                </DialogHeader>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="font-semibold text-xl mb-3 text-gray-900">About the Project</h3>
+                  <p className="text-gray-600 leading-relaxed">{selectedTestimonial.description}</p>
+                </div>
                 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <div>
-                    {testimonial.mediaType === 'video' ? (
-                      <video 
-                        controls 
-                        className="w-full rounded-lg"
-                        poster={testimonial.thumbnailUrl}
-                      >
-                        <source src={testimonial.mediaUrl} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : (
-                      <img 
-                        src={testimonial.mediaUrl} 
-                        alt={testimonial.projectTitle}
-                        className="w-full rounded-lg"
-                      />
-                    )}
+                <div>
+                  <h3 className="font-semibold text-xl mb-4 text-gray-900">Key Results</h3>
+                  <div className="space-y-3">
+                    {selectedTestimonial.results.map((result, index) => (
+                      <div key={index} className="flex items-center gap-3 p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-100">
+                        <div className="w-3 h-3 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex-shrink-0"></div>
+                        <span className="text-gray-700 font-medium">{result}</span>
+                      </div>
+                    ))}
                   </div>
-                  
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">About the Project</h3>
-                      <p className="text-gray-600">{testimonial.description}</p>
+                </div>
+                
+                <div className="border-t pt-6 border-gray-200">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl">
+                      {selectedTestimonial.name.charAt(0)}
                     </div>
-                    
                     <div>
-                      <h3 className="font-semibold text-lg mb-2">Key Results</h3>
-                      <ul className="space-y-1">
-                        {testimonial.results.map((result, index) => (
-                          <li key={index} className="flex items-center gap-2 text-gray-600">
-                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                            {result}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div className="border-t pt-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
-                          {testimonial.name.charAt(0)}
-                        </div>
-                        <div>
-                          <div className="font-semibold">{testimonial.name}</div>
-                          <div className="text-sm text-gray-600">{testimonial.position} at {testimonial.company}</div>
-                          <Badge variant="outline" className="mt-1">{testimonial.industry}</Badge>
+                      <div className="font-bold text-lg text-gray-900">{selectedTestimonial.name}</div>
+                      <div className="text-gray-600 flex items-center gap-2 mb-2">
+                        <Building className="w-4 h-4" />
+                        {selectedTestimonial.position} at {selectedTestimonial.company}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline" className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+                          {selectedTestimonial.industry}
+                        </Badge>
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`w-4 h-4 ${i < selectedTestimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+                            />
+                          ))}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </DialogContent>
-            </Dialog>
-          ))}
-        </div>
-
-        {/* CTA Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">Ready to Build Your Success Story?</h2>
-          <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-            Join hundreds of entrepreneurs who have transformed their ideas into successful AI companies with our guidance.
-          </p>
-          <Button size="lg" variant="secondary" className="rounded-full">
-            Start Your AI Company Journey
-          </Button>
-        </div>
-      </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };
