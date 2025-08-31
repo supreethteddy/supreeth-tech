@@ -104,6 +104,16 @@ const WebGLHeroBackground: React.FC = () => {
       }
     };
 
+    // Add CSS keyframes to document head
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+      @keyframes gradient-shift {
+        0%, 100% { opacity: 0.8; transform: translateX(0); }
+        50% { opacity: 1; transform: translateX(20px); }
+      }
+    `;
+    document.head.appendChild(styleElement);
+
     // Delay to ensure DOM is ready
     const timeoutId = setTimeout(loadVanta, 100);
 
@@ -117,26 +127,22 @@ const WebGLHeroBackground: React.FC = () => {
         }
         vantaEffect.current = null;
       }
+      // Clean up style element
+      if (document.head.contains(styleElement)) {
+        document.head.removeChild(styleElement);
+      }
     };
   }, []);
 
   return (
-    <>
-      <div 
-        ref={vantaRef}
-        className="absolute inset-0 w-full h-full"
-        style={{ 
-          zIndex: 1,
-          pointerEvents: 'none'
-        }}
-      />
-      <style jsx>{`
-        @keyframes gradient-shift {
-          0%, 100% { opacity: 0.8; transform: translateX(0); }
-          50% { opacity: 1; transform: translateX(20px); }
-        }
-      `}</style>
-    </>
+    <div 
+      ref={vantaRef}
+      className="absolute inset-0 w-full h-full"
+      style={{ 
+        zIndex: 1,
+        pointerEvents: 'none'
+      }}
+    />
   );
 };
 
