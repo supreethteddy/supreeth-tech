@@ -5,24 +5,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navigation from "@/components/Navigation";
 import ContactForm from "@/components/ContactForm";
-import InteractiveLightBackground from "@/components/InteractiveLightBackground";
+import WebGLHeroBackground from "@/components/WebGLHeroBackground";
 
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
     
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("mousemove", handleMouseMove);
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -98,16 +92,17 @@ const Index = () => {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Interactive Light Background */}
-        <InteractiveLightBackground />
-        
-        {/* Base Background */}
+        {/* Base Background Gradient */}
         <div 
           className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"
           style={{
             transform: `translateY(${scrollY * 0.5}px)`,
+            zIndex: 0
           }}
         />
+        
+        {/* WebGL Interactive Background */}
+        <WebGLHeroBackground />
         
         <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
           <div className="fade-in">
