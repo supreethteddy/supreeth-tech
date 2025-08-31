@@ -23,22 +23,29 @@ const WebGLHeroBackground: React.FC = () => {
       try {
         console.log('Starting Vanta initialization...');
         
-        // First, dynamically import and set up Three.js
+        // First, dynamically import Three.js and expose it globally
         const THREE = await import('three');
         console.log('Three.js loaded:', !!THREE);
         
-        // Make Three.js available globally for Vanta
+        // Make sure Three.js is available globally with all its exports
         window.THREE = THREE;
         
-        // Small delay to ensure Three.js is fully available
-        await new Promise(resolve => setTimeout(resolve, 100));
+        // Ensure all Three.js classes are available
+        Object.keys(THREE).forEach(key => {
+          if (!window.THREE[key]) {
+            window.THREE[key] = THREE[key as keyof typeof THREE];
+          }
+        });
+        
+        // Wait for Three.js to be fully available
+        await new Promise(resolve => setTimeout(resolve, 200));
         
         // Then import Vanta
         await import('vanta/dist/vanta.net.min.js');
         console.log('Vanta loaded, VANTA available:', !!window.VANTA);
         
-        // Another small delay for Vanta initialization
-        await new Promise(resolve => setTimeout(resolve, 100));
+        // Wait for Vanta to initialize
+        await new Promise(resolve => setTimeout(resolve, 200));
         
         if (vantaRef.current && window.VANTA?.NET) {
           console.log('Initializing Vanta effect...');
@@ -51,29 +58,53 @@ const WebGLHeroBackground: React.FC = () => {
             minWidth: 200.00,
             scale: 1.00,
             scaleMobile: 0.8,
-            color: 0x00ff88,  // Alien green
-            backgroundColor: 0x111111,  // Dark background instead of black
-            backgroundAlpha: 0.3,  // Semi-transparent instead of fully transparent
-            points: 8.00,
-            maxDistance: 25.00,
-            spacing: 18.00,
-            showDots: true
+            color: 0x00ffaa,  // Bright cyan-green for connections
+            backgroundColor: 0x000000,  // Pure black background
+            backgroundAlpha: 0.8,  // Semi-transparent
+            points: 12.00,  // More connection points
+            maxDistance: 30.00,  // Longer connections
+            spacing: 20.00,  // Better spacing
+            showDots: true,
+            // Additional effects for better visuals
+            waveHeight: 15.00,
+            waveSpeed: 0.75,
+            zoom: 0.75
           });
           console.log('Vanta effect created:', !!vantaEffect.current);
         } else {
           console.error('Vanta initialization failed - missing dependencies');
+          // Enhanced fallback with animated particles
+          if (vantaRef.current) {
+            vantaRef.current.style.background = `
+              radial-gradient(circle at 20% 30%, rgba(0, 255, 170, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(0, 170, 255, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(170, 0, 255, 0.1) 0%, transparent 70%)
+            `;
+            vantaRef.current.style.animation = 'pulse 3s ease-in-out infinite';
+          }
         }
       } catch (error) {
         console.error('Failed to load Vanta.NET:', error);
-        // Fallback: show a subtle animated background
+        // Enhanced fallback with better visual appeal
         if (vantaRef.current) {
-          vantaRef.current.style.background = 'radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 70%)';
-          vantaRef.current.style.animation = 'pulse 4s ease-in-out infinite';
+          vantaRef.current.innerHTML = `
+            <div style="
+              position: absolute;
+              inset: 0;
+              background: linear-gradient(45deg, 
+                rgba(0, 255, 170, 0.1) 0%, 
+                transparent 25%, 
+                rgba(0, 170, 255, 0.1) 50%, 
+                transparent 75%, 
+                rgba(170, 0, 255, 0.1) 100%);
+              animation: gradient-shift 8s ease-in-out infinite;
+            "></div>
+          `;
         }
       }
     };
 
-    // Small delay before starting to ensure DOM is ready
+    // Delay to ensure DOM is ready
     const timeoutId = setTimeout(loadVanta, 100);
 
     return () => {
@@ -90,14 +121,22 @@ const WebGLHeroBackground: React.FC = () => {
   }, []);
 
   return (
-    <div 
-      ref={vantaRef}
-      className="absolute inset-0 w-full h-full"
-      style={{ 
-        zIndex: 1,
-        pointerEvents: 'none'
-      }}
-    />
+    <>
+      <div 
+        ref={vantaRef}
+        className="absolute inset-0 w-full h-full"
+        style={{ 
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}
+      />
+      <style jsx>{`
+        @keyframes gradient-shift {
+          0%, 100% { opacity: 0.8; transform: translateX(0); }
+          50% { opacity: 1; transform: translateX(20px); }
+        }
+      `}</style>
+    </>
   );
 };
 
