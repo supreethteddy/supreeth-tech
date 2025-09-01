@@ -1,7 +1,9 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "supreeth-tech-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Supreeth Girish - Chief Technology Officer Portfolio & AI Solutions",
+  "author": "Supreeth Girish",
   "type": "module",
   "scripts": {
     "dev": "vite",
