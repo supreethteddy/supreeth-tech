@@ -30,15 +30,20 @@ const TestimonialCard = ({ testimonial, index, onClick }: TestimonialCardProps) 
     if (testimonial.mediaType === 'video') {
       return (
         <div className="relative group">
-          <div className="w-full h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-            <div className="text-center">
-              <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 mb-3 transition-all duration-300 group-hover:scale-110 group-hover:bg-white/30">
+          <video 
+            className="w-full h-48 object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
+            muted
+            preload="metadata"
+          >
+            <source src={testimonial.mediaUrl} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-xl">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-300 group-hover:scale-110 group-hover:bg-white/30">
                 <Play className="w-8 h-8 text-white" />
               </div>
-              <p className="text-white text-sm font-medium">Click to watch video</p>
             </div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-xl" />
         </div>
       );
     }

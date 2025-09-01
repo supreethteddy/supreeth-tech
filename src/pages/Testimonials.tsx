@@ -304,20 +304,10 @@ const Testimonials = () => {
         <div className="relative aspect-[9/16] bg-gradient-to-br from-blue-500 to-purple-600">
           {isVideo ? (
             <video
-              ref={(el) => {
-                if (el) {
-                  el.muted = isMuted[videoId] || false;
-                  if (isPlaying[videoId]) {
-                    el.play();
-                  } else {
-                    el.pause();
-                  }
-                }
-              }}
               className="w-full h-full object-cover"
-              loop
-              playsInline
-              onClick={() => handleVideoPlay(videoId)}
+              muted
+              preload="metadata"
+              poster={testimonial.thumbnailUrl}
             >
               <source src={testimonial.mediaUrl} type="video/mp4" />
             </video>
