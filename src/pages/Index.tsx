@@ -133,6 +133,7 @@ const Index = () => {
               <Button 
                 size="lg" 
                 className="text-lg px-8 py-6 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl group"
+                onClick={() => window.open('https://baas.boostmysites.com/', '_blank')}
               >
                 Start Your AI Company
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />

@@ -53,7 +53,10 @@ const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button className="rounded-full px-6">
+            <Button 
+              className="rounded-full px-6"
+              onClick={() => window.open('https://baas.boostmysites.com/', '_blank')}
+            >
               Start Your AI Company
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -83,7 +86,10 @@ const Navigation = () => {
                 </a>
               ))}
               <div className="px-4 pt-4 border-t border-gray-200">
-                <Button className="w-full rounded-full">
+                <Button 
+                  className="w-full rounded-full"
+                  onClick={() => window.open('https://baas.boostmysites.com/', '_blank')}
+                >
                   Start Your AI Company
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

@@ -23,29 +23,48 @@ const WebGLHeroBackground: React.FC = () => {
       try {
         console.log('Starting Vanta initialization...');
         
-        // First, dynamically import Three.js and expose it globally
-        const THREE = await import('three');
-        console.log('Three.js loaded:', !!THREE);
+        // Check if CDN scripts are already loaded
+        if (!window.THREE) {
+          console.log('Loading Three.js from CDN...');
+          // Wait for Three.js to be available from CDN
+          await new Promise(resolve => {
+            const checkThree = () => {
+              if (window.THREE) {
+                resolve(true);
+              } else {
+                setTimeout(checkThree, 100);
+              }
+            };
+            checkThree();
+          });
+        }
         
-        // Make sure Three.js is available globally with all its exports
-        window.THREE = THREE;
+        if (!window.VANTA) {
+          console.log('Loading Vanta from CDN...');
+          // Wait for Vanta to be available from CDN
+          await new Promise(resolve => {
+            const checkVanta = () => {
+              if (window.VANTA) {
+                resolve(true);
+              } else {
+                setTimeout(checkVanta, 100);
+              }
+            };
+            checkVanta();
+          });
+        }
         
-        // Ensure all Three.js classes are available
-        Object.keys(THREE).forEach(key => {
-          if (!window.THREE[key]) {
-            window.THREE[key] = THREE[key as keyof typeof THREE];
-          }
-        });
+        // Fallback: Try to load from npm modules if CDN failed
+        if (!window.THREE) {
+          console.log('CDN failed, trying npm modules...');
+          const THREE = await import('three');
+          window.THREE = THREE;
+        }
         
-        // Wait for Three.js to be fully available
-        await new Promise(resolve => setTimeout(resolve, 200));
-        
-        // Then import Vanta
-        await import('vanta/dist/vanta.net.min.js');
-        console.log('Vanta loaded, VANTA available:', !!window.VANTA);
-        
-        // Wait for Vanta to initialize
-        await new Promise(resolve => setTimeout(resolve, 200));
+        if (!window.VANTA) {
+          console.log('CDN failed, trying npm modules...');
+          await import('vanta/dist/vanta.net.min.js');
+        }
         
         if (vantaRef.current && window.VANTA?.NET) {
           console.log('Initializing Vanta effect...');
@@ -53,22 +72,15 @@ const WebGLHeroBackground: React.FC = () => {
             el: vantaRef.current,
             mouseControls: true,
             touchControls: true,
-            gyroControls: false,
             minHeight: 200.00,
             minWidth: 200.00,
             scale: 1.00,
-            scaleMobile: 0.8,
-            color: 0x00ffaa,  // Bright cyan-green for connections
-            backgroundColor: 0x000000,  // Pure black background
-            backgroundAlpha: 0.8,  // Semi-transparent
-            points: 12.00,  // More connection points
-            maxDistance: 30.00,  // Longer connections
-            spacing: 20.00,  // Better spacing
-            showDots: true,
-            // Additional effects for better visuals
-            waveHeight: 15.00,
-            waveSpeed: 0.75,
-            zoom: 0.75
+            scaleMobile: 1.00,
+            color: 0x4a90e2,   // line color (AI blue/purple tones)
+            backgroundColor: 0xffffff, // white background
+            points: 10.00,
+            maxDistance: 20.00,
+            spacing: 15.00
           });
           console.log('Vanta effect created:', !!vantaEffect.current);
         } else {
@@ -76,9 +88,9 @@ const WebGLHeroBackground: React.FC = () => {
           // Enhanced fallback with animated particles
           if (vantaRef.current) {
             vantaRef.current.style.background = `
-              radial-gradient(circle at 20% 30%, rgba(0, 255, 170, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at 80% 70%, rgba(0, 170, 255, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at 50% 50%, rgba(170, 0, 255, 0.1) 0%, transparent 70%)
+              radial-gradient(circle at 20% 30%, rgba(74, 144, 226, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(116, 75, 162, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(240, 147, 251, 0.1) 0%, transparent 70%)
             `;
             vantaRef.current.style.animation = 'pulse 3s ease-in-out infinite';
           }
@@ -92,11 +104,11 @@ const WebGLHeroBackground: React.FC = () => {
               position: absolute;
               inset: 0;
               background: linear-gradient(45deg, 
-                rgba(0, 255, 170, 0.1) 0%, 
+                rgba(74, 144, 226, 0.1) 0%, 
                 transparent 25%, 
-                rgba(0, 170, 255, 0.1) 50%, 
+                rgba(116, 75, 162, 0.1) 50%, 
                 transparent 75%, 
-                rgba(170, 0, 255, 0.1) 100%);
+                rgba(240, 147, 251, 0.1) 100%);
               animation: gradient-shift 8s ease-in-out infinite;
             "></div>
           `;

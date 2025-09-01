@@ -243,7 +243,12 @@ const Gallery = () => {
             Join the ranks of successful AI entrepreneurs and build your own empire.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-blue-600">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="text-white border-white hover:bg-white hover:text-blue-600"
+              onClick={() => window.open('https://baas.boostmysites.com/', '_blank')}
+            >
               Start Your AI Company
             </Button>
             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
