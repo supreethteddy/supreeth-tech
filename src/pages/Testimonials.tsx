@@ -338,54 +338,36 @@ const Testimonials = () => {
 
 
 
-          {/* Bottom Caption Area */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-            <div className="space-y-3">
-              {/* Company & Industry */}
+          {/* Instagram-style Minimal Caption */}
+          <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
+            <div className="space-y-2">
+              {/* Author & Company - Compact */}
               <div className="flex items-center gap-2">
-                <span className="text-white font-semibold text-sm">{testimonial.company}</span>
-                <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-xs">
-                  {testimonial.industry}
-                </Badge>
-              </div>
-
-              {/* Project Title */}
-              <h3 className="text-white font-bold text-lg leading-tight">
-                {testimonial.projectTitle}
-              </h3>
-
-              {/* Description */}
-              <p className="text-white/90 text-sm leading-relaxed line-clamp-2">
-                {testimonial.description}
-              </p>
-
-              {/* Key Results */}
-              <div className="flex flex-wrap gap-2">
-                {testimonial.results.slice(0, 2).map((result, idx) => (
-                  <span key={idx} className="text-white/80 text-xs bg-white/10 px-2 py-1 rounded-full">
-                    {result}
-                  </span>
-                ))}
-              </div>
-
-              {/* Author Info */}
-              <div className="flex items-center gap-2 pt-2">
                 <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
                   {testimonial.name.charAt(0)}
                 </div>
-                <span className="text-white/90 text-sm font-medium">{testimonial.name}</span>
-                <span className="text-white/70 text-xs">• {testimonial.position}</span>
+                <span className="text-white font-medium text-sm">{testimonial.name}</span>
+                <span className="text-white/70 text-xs">• {testimonial.company}</span>
               </div>
 
-              {/* Rating */}
+              {/* Project Title - Short */}
+              <h3 className="text-white font-semibold text-sm leading-tight line-clamp-1">
+                {testimonial.projectTitle}
+              </h3>
+
+              {/* Key Result - Single Line */}
               <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-3 h-3 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-white/30'}`}
-                  />
-                ))}
-                <span className="text-white/70 text-xs ml-1">{testimonial.rating}.0</span>
+                <span className="text-white/80 text-xs bg-white/20 px-2 py-1 rounded-full">
+                  {testimonial.results[0]}
+                </span>
+                <div className="flex items-center gap-1 ml-auto">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-3 h-3 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-white/30'}`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
