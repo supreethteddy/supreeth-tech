@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,11 +17,11 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Companies", href: "#companies" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Companies", href: "/companies" },
     { name: "Testimonials", href: "/testimonials" },
-    { name: "Gallery", href: "#gallery" },
+    { name: "Gallery", href: "/gallery" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -41,13 +42,23 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
-              >
-                {item.name}
-              </a>
+              item.href.startsWith('#') ? (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+                >
+                  {item.name}
+                </Link>
+              )
             ))}
           </div>
 
@@ -76,14 +87,25 @@ const Navigation = () => {
           <div className="md:hidden bg-white border-t border-gray-200 py-4">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium px-4 py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </a>
+                item.href.startsWith('#') ? (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium px-4 py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium px-4 py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                )
               ))}
               <div className="px-4 pt-4 border-t border-gray-200">
                 <Button 
