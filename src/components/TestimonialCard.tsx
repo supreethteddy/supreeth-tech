@@ -30,13 +30,11 @@ const TestimonialCard = ({ testimonial, index, onClick }: TestimonialCardProps) 
     if (testimonial.mediaType === 'video') {
       return (
         <div className="relative group">
-          <video 
+          <img 
+            src={testimonial.thumbnailUrl || testimonial.mediaUrl} 
+            alt={`${testimonial.projectTitle} preview`}
             className="w-full h-48 object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
-            muted
-            preload="metadata"
-          >
-            <source src={testimonial.mediaUrl} type="video/mp4" />
-          </video>
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-xl">
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-300 group-hover:scale-110 group-hover:bg-white/30">

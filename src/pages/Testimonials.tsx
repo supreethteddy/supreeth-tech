@@ -35,7 +35,7 @@ const mockTestimonials: Testimonial[] = [
     description: "With Supreeth's mentorship, I successfully launched my AI tech services company – Beyond AI Tech. At Beyond AI, innovation is at the heart of everything we do. From cutting-edge AI solutions to transformative digital experiences, our expert team blends technology, creativity, and strategy to deliver real-world results for businesses worldwide.",
     mediaType: "video",
     mediaUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703401/IMG_8378_wi6xth.mov",
-    thumbnailUrl: undefined,
+    thumbnailUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703401/IMG_8378_wi6xth.jpg",
     rating: 5,
     date: "2024-01-15",
     results: ["Successfully launched AI tech services company", "Empowering Businesses, Transforming Futures", "Expert team delivering real-world results"],
@@ -52,6 +52,7 @@ const mockTestimonials: Testimonial[] = [
     description: "With Supreeth's guidance and BoostMySites' support, I transformed my long-time dream of entrepreneurship into reality by starting my own AI company. Coming from a mechanical engineering background and working across the Middle East in civil sectors, the shift to AI wasn't an easy path. But with the right mentorship and infrastructure, I realized the immense potential of the AI industry and knew this was the right time to start. Today, through BoostMySites' ecosystem, I'm building my AI development company and fulfilling a vision I've carried for over a decade.",
     mediaType: "video",
     mediaUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703374/Stay_Ahead_of_the_Curve_BOOSTMYSITES_AI-powered_innovations_elevate_online_engagement_revenu_og6khs.mp4",
+    thumbnailUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703374/Stay_Ahead_of_the_Curve_BOOSTMYSITES_AI-powered_innovations_elevate_online_engagement_revenu_og6khs.jpg",
     rating: 5,
     date: "2024-02-10",
     results: ["Transformed engineering career to AI entrepreneurship", "Built AI development company through BoostMySites", "Fulfilled decade-long entrepreneurial vision"],
@@ -68,6 +69,7 @@ const mockTestimonials: Testimonial[] = [
     description: "With Supreeth's mentorship, I was able to start my own AI business straight out of college and close my first two clients within just a few months. I always wanted to build a company instead of working for someone else, but I didn't want to take on high risks. With the right guidance, I launched my AI venture early this year, and by April-May we had already closed two clients — one in EV charging solutions and another in medical endoscopy automation. Through referrals and the strategies I learned, I was able to pitch, handle meetings, and secure projects that are helping businesses reduce manpower and improve efficiency.",
     mediaType: "video",
     mediaUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703359/Open_talk_with_an_Ai_expert_subscriber_who_is_on_track_of_making_crores_by_launching_Ai_compa_b0ipq3.mp4",
+    thumbnailUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703359/Open_talk_with_an_Ai_expert_subscriber_who_is_on_track_of_making_crores_by_launching_Ai_compa_b0ipq3.jpg",
     rating: 5,
     date: "2023-12-05",
     results: ["Started AI business straight out of college", "Closed first two clients within months", "EV charging & medical automation projects"],
@@ -84,6 +86,7 @@ const mockTestimonials: Testimonial[] = [
     description: "With Supreeth's mentorship, I closed one of my biggest achievements yet — developing a cab-hailing mobile app like Ola/Uber for RideGo Cabs in Hyderabad. After over a decade of working in operations across various companies, growth felt stagnant. Starting my AI company through the BaaS ecosystem gave me a fresh path forward. Within just months, I've already kicked off multiple projects, including a Quick Commerce app and even a Dream11-style fantasy sports platform. AI is evolving rapidly, and with the right mentorship and infrastructure, I'm growing with it — turning ambitious ideas into real-world businesses.",
     mediaType: "video",
     mediaUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703359/Snapins.ai_video_AQPpZT-Oo8dtf86sm50RgaOnc-WIxzrwxM0sY7WvMYJ8tOhQ7h4Ka_1Rj5baux-9c64m7JN9l3K8XBtJDKGSUxFgEbB4ALD7TgH-FIE_pyxqr5.mp4",
+    thumbnailUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703359/Snapins.ai_video_AQPpZT-Oo8dtf86sm50RgaOnc-WIxzrwxM0sY7WvMYJ8tOhQ7h4Ka_1Rj5baux-9c64m7JN9l3K8XBtJDKGSUxFgEbB4ALD7TgH-FIE_pyxqr5.jpg",
     rating: 5,
     date: "2024-11-01",
     results: ["Ola/Uber-style cab app for RideGo Cabs", "Quick Commerce app development", "Dream11-style fantasy sports platform"],
@@ -100,6 +103,7 @@ const mockTestimonials: Testimonial[] = [
     description: "With Supreeth's mentorship, I built my AI company from scratch, closed high-value projects, and was recognized as one of the youngest entrepreneurs of 2024. In just one year, I've worked on projects with Hyderabad Aerospace, MetaHuman for education, avatar integrations, voice agents, and more — generating over ₹50 lakhs in revenue without spending on ads. Our deals included $6,000 with Aerospace, ₹3.5 lakhs for a prompt exam app, and ₹5 lakhs for a Meta project, all achieved through strategic guidance and PR-driven branding. This journey has shown me that with the right mentorship and ecosystem, it's possible to scale fast and achieve recognition even as a young founder.",
     mediaType: "video",
     mediaUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703358/SnapInsta.to_AQPJRaiA7Y-6jLnZhccZycLqoWWDh7N_2SfwAZPUS14NNgI2QEJc0rWlA-wNTb8ndQjKM24kxW9ey68CbjniFnqocPpLz0CpbuheCB4_ih1bp8.mp4",
+    thumbnailUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703358/SnapInsta.to_AQPJRaiA7Y-6jLnZhccZycLqoWWDh7N_2SfwAZPUS14NNgI2QEJc0rWlA-wNTb8ndQjKM24kxW9ey68CbjniFnqocPpLz0CpbuheCB4_ih1bp8.jpg",
     rating: 5,
     date: "2024-03-20",
     results: ["₹50+ lakhs revenue in one year", "Youngest entrepreneur 2024 recognition", "High-value aerospace & education projects"],
@@ -116,6 +120,7 @@ const mockTestimonials: Testimonial[] = [
     description: "With Supreeth's mentorship, I was able to close a blockchain project backed by gold coins and secure long-term commitments with my client. Over the last few months, our team successfully delivered a ₹5.6 lakh blockchain project tied to gold tokenization, and we've already signed on for extended collaboration. Alongside, we are working on healthcare projects and scaling steadily with the right mix of strategy, client communication, and execution. This journey has taught me that strong mentorship and the right ecosystem make it possible to grow faster, manage clients effectively, and build long-term business trust.",
     mediaType: "video",
     mediaUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703359/SnapInsta.to_AQNpYyVTyaUvePFS7M8OTMrBeS0DP5Z6YHEQJ5psQishQKtWRhsZKOEUmrCd_42uqF8YEizMr_LAE6up-REOn_Ib6xUTItRByI9Jews_cea2yf.mp4",
+    thumbnailUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703359/SnapInsta.to_AQNpYyVTyaUvePFS7M8OTMrBeS0DP5Z6YHEQJ5psQishQKtWRhsZKOEUmrCd_42uqF8YEizMr_LAE6up-REOn_Ib6xUTItRByI9Jews_cea2yf.jpg",
     rating: 5,
     date: "2024-04-15",
     results: ["₹5.6 lakh blockchain project delivered", "Gold tokenization expertise", "Long-term client partnerships secured"],
@@ -132,6 +137,7 @@ const mockTestimonials: Testimonial[] = [
     description: "With Supreeth's mentorship and BoostMySites' ecosystem, I was able to close a ₹6 lakh aerospace project for building an AI-powered solar flare alert system and CRM platform. When we pitched to the aerospace client, what stood out was that through my company I could provide all services under one roof — mobile apps, AI solutions, and website development — saving the client time and costs compared to hiring multiple vendors. That credibility helped me win the deal even as a new founder. Having access to the right guidance, infrastructure, and complete tech stack has been the game-changer in landing projects I never thought I could close this early.",
     mediaType: "video",
     mediaUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703361/SnapInsta.to_AQMlIJjXWld7-I50mqpJXnprZo72ppvgCBlYArNYGHViOGZvlI5xZvA_S6tPncJ7Zm1wyyVhqP217Riz2VUqVX-Q7_MYA07I7vdgpf4_klsjef.mp4",
+    thumbnailUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703361/SnapInsta.to_AQMlIJjXWld7-I50mqpJXnprZo72ppvgCBlYArNYGHViOGZvlI5xZvA_S6tPncJ7Zm1wyyVhqP217Riz2VUqVX-Q7_MYA07I7vdgpf4_klsjef.jpg",
     rating: 5,
     date: "2024-05-10",
     results: ["₹6 lakh aerospace project secured", "AI-powered solar flare alert system", "One-stop tech solution provider"],
@@ -148,6 +154,7 @@ const mockTestimonials: Testimonial[] = [
     description: "With Supreeth's mentorship, I scaled my company to close 3 major projects — including a $20,000 custom software solution for a US client, an Endoscopy IoT platform, and an EV mobile app. By building relationships instead of just selling, I was able to secure repeat business and referrals that keep our pipeline growing. From healthcare tech using Raspberry Pi for offline endoscopy solutions, to EV mobility apps, and global software development, my company is progressing rapidly under the Business-as-a-Service (BaaS) ecosystem. Having the right mentorship and structure has given me the confidence to pitch globally and deliver across industries.",
     mediaType: "video",
     mediaUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703354/As_the_CEO_we_must_lead_by_example_and_become_the_best_sales_person_for_our_business_driving_t_wfcp4s.mp4",
+    thumbnailUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703354/As_the_CEO_we_must_lead_by_example_and_become_the_best_sales_person_for_our_business_driving_t_wfcp4s.jpg",
     rating: 5,
     date: "2024-06-20",
     results: ["$20K US client project secured", "Healthcare IoT & EV solutions delivered", "Global pitching confidence achieved"],
@@ -164,6 +171,7 @@ const mockTestimonials: Testimonial[] = [
     description: "With Supreeth's mentorship and the BoostMySites BaaS ecosystem, I closed my first two website development projects and am now aiming to become one of the best web development companies. Coming from a non-technical background, it wasn't easy to start. But with consistent follow-ups, building client trust, and support from the developer team, I was able to secure two projects worth $3,100 and even begin exploring app development opportunities. This journey has shown me that with the right mentorship and guidance, even small-ticket wins become stepping stones to building a long-term, successful business.",
     mediaType: "video",
     mediaUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703366/Snapinst.app_video_AQOZDrDxL0w3V9RMcX3SStpmP35PPmLrmNTSbfjizpAD70LUw9eNEoeYOBZmAsy8BOQ8PUVii3sGMZ1LlGejD-Ay-Wt3fw_MkdVrtYM_p1mgkd.mp4",
+    thumbnailUrl: "https://res.cloudinary.com/dij4v6vtx/video/upload/v1756703366/Snapinst.app_video_AQOZDrDxL0w3V9RMcX3SStpmP35PPmLrmNTSbfjizpAD70LUw9eNEoeYOBZmAsy8BOQ8PUVii3sGMZ1LlGejD-Ay-Wt3fw_MkdVrtYM_p1mgkd.jpg",
     rating: 5,
     date: "2024-07-05",
     results: ["$3,100 in first two web projects", "Non-technical to tech entrepreneur", "App development opportunities emerging"],
@@ -303,14 +311,11 @@ const Testimonials = () => {
         {/* Video/Image Container */}
         <div className="relative aspect-[9/16] bg-gradient-to-br from-blue-500 to-purple-600">
           {isVideo ? (
-            <video
+            <img
+              src={testimonial.thumbnailUrl || testimonial.mediaUrl}
+              alt={testimonial.projectTitle}
               className="w-full h-full object-cover"
-              muted
-              preload="metadata"
-              poster={testimonial.thumbnailUrl}
-            >
-              <source src={testimonial.mediaUrl} type="video/mp4" />
-            </video>
+            />
           ) : (
             <img
               src={testimonial.mediaUrl}
