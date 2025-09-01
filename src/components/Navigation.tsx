@@ -21,7 +21,7 @@ const Navigation = () => {
     { name: "About", href: "/about" },
     { name: "Companies", href: "/companies" },
     { name: "Testimonials", href: "/testimonials" },
-    { name: "Gallery", href: "/gallery" },
+    { name: "BoostMySites", href: "/gallery" },
     { name: "Contact", href: "#contact" },
   ];
 

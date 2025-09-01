@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronDown, ArrowRight, Play, Users, Trophy, Zap, Building, Sparkles, Code, Lightbulb, Rocket, Star } from "lucide-react";
+import { ChevronDown, ArrowRight, Play, Users, Trophy, Zap, Building, Sparkles, Code, Lightbulb, Rocket, Star, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +9,7 @@ import WebGLHeroBackground from "@/components/WebGLHeroBackground";
 
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -19,6 +20,34 @@ const Index = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleVideoOpen = () => {
+    setIsVideoModalOpen(true);
+    // Add a small delay to ensure modal is rendered before trying to play
+    setTimeout(() => {
+      const video = document.querySelector('#hero-video') as HTMLVideoElement;
+      if (video) {
+        video.play().catch(error => {
+          console.log('Auto-play failed:', error);
+        });
+        
+        // Check if video is actually playing after 2 seconds
+        setTimeout(() => {
+          if (video.readyState < 2) { // HAVE_CURRENT_DATA
+            console.log('Video not ready, showing fallback');
+            const fallback = document.querySelector('#video-fallback') as HTMLElement;
+            if (fallback) {
+              fallback.classList.remove('hidden');
+            }
+          }
+        }, 2000);
+      }
+    }, 100);
+  };
+
+  const handleVideoClose = () => {
+    setIsVideoModalOpen(false);
+  };
 
   const companies = [
     {
@@ -109,7 +138,7 @@ const Index = () => {
             {/* Profile Picture */}
             <div className="mb-8 flex justify-center">
               <div className="relative group">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-3xl">
+                <div className="w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-white shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-3xl">
                   <img 
                     src="https://res.cloudinary.com/dij4v6vtx/image/upload/v1756751375/IMG_2498_haogvs.jpg"
                     alt="Supreeth Girish - Chief Technology Officer & AI Expert"
@@ -124,10 +153,10 @@ const Index = () => {
             </div>
 
             <h1 className="hero-text mb-6 animate-fade-in relative z-10">
-              I turn ideas into <span className="gradient-text">AI empires</span>
+              Shaping the future with <span className="gradient-text">AI-powered business as a service</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in delay-200 relative z-10">
-              From 500+ AI projects to launching 100+ startups — I help you build and scale your AI company fast.
+              From 500+ AI projects to launching 100+ startups I help you build and scale your AI company fast.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in delay-400 relative z-10">
               <Button 
@@ -142,9 +171,10 @@ const Index = () => {
                 variant="outline" 
                 size="lg" 
                 className="text-lg px-8 py-6 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-50 group"
+                onClick={handleVideoOpen}
               >
                 <Play className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                Watch My Story
+                Watch to start
               </Button>
             </div>
           </div>
@@ -471,6 +501,82 @@ const Index = () => {
           <ContactForm />
         </div>
       </section>
+
+      {/* Video Modal */}
+      {isVideoModalOpen && (
+        <div className="fixed inset-0 bg-black z-50 flex items-center justify-center p-4">
+          <div className="relative w-full max-w-4xl mx-auto bg-white rounded-2xl overflow-hidden">
+            {/* Close Button */}
+            <button
+              onClick={handleVideoClose}
+              className="absolute top-4 right-4 z-10 bg-black/50 backdrop-blur-sm rounded-full p-2 hover:bg-black/70 transition-all duration-300 group"
+            >
+              <X className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-300" />
+            </button>
+            
+            {/* Video Container */}
+            <div className="relative w-full aspect-video bg-black">
+              <video
+                id="hero-video"
+                autoPlay
+                controls
+                preload="auto"
+                playsInline
+                muted
+                className="w-full h-full object-contain"
+                onEnded={handleVideoClose}
+                onError={(e) => {
+                  console.log('Video error:', e);
+                  const fallback = document.querySelector('#video-fallback') as HTMLElement;
+                  if (fallback) {
+                    fallback.classList.remove('hidden');
+                  }
+                }}
+                onLoadedData={() => {
+                  const video = document.querySelector('#hero-video') as HTMLVideoElement;
+                  if (video) {
+                    video.muted = false; // Unmute after loading
+                    video.play().catch(error => {
+                      console.log('Auto-play failed:', error);
+                    });
+                  }
+                }}
+              >
+                <source src="https://res.cloudinary.com/dij4v6vtx/video/upload/v1756752766/IMG_7010_2_2_trrfbv.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              
+              {/* Fallback if video doesn't load */}
+              <div id="video-fallback" className="absolute inset-0 flex items-center justify-center bg-gray-900 hidden">
+                <div className="text-center text-white">
+                  <Play className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                  <p className="text-lg mb-4">Video loading...</p>
+                  <Button 
+                    onClick={() => {
+                      const video = document.querySelector('#hero-video') as HTMLVideoElement;
+                      if (video) {
+                        video.load();
+                        video.play().catch(error => {
+                          console.log('Reload play failed:', error);
+                        });
+                      }
+                    }}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    Reload Video
+                  </Button>
+                </div>
+              </div>
+            </div>
+            
+            {/* Video Info */}
+            <div className="p-6 bg-white">
+              <h3 className="text-black text-xl font-semibold mb-2 text-center">Watch to Start Your AI Journey</h3>
+              <p className="text-gray-600 text-center">Learn how to build and scale your AI company with proven strategies</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
