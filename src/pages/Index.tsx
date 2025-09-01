@@ -111,8 +111,8 @@ const Index = () => {
               <div className="relative group">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-3xl">
                   <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-                    alt="Supreeth G - AI Entrepreneur & CTO"
+                    src="https://res.cloudinary.com/dij4v6vtx/image/upload/v1756751375/IMG_2498_haogvs.jpg"
+                    alt="Supreeth Girish - Chief Technology Officer & AI Expert"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
