@@ -344,32 +344,34 @@ const Testimonials = () => {
 
 
           {/* Instagram-style Minimal Caption */}
-          <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
-            <div className="space-y-2">
-              {/* Author & Company - Compact */}
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/85 via-black/60 to-transparent min-h-[120px] flex items-end">
+            <div className="w-full space-y-3">
+              {/* Author & Company - Larger and Better Spaced */}
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                   {testimonial.name.charAt(0)}
                 </div>
-                <span className="text-white font-medium text-sm">{testimonial.name}</span>
-                <span className="text-white/70 text-xs">• {testimonial.company}</span>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-white font-semibold text-base leading-tight">{testimonial.name}</span>
+                  <span className="text-white/80 text-sm leading-tight truncate">• {testimonial.company}</span>
+                </div>
               </div>
 
-              {/* Project Title - Short */}
-              <h3 className="text-white font-semibold text-sm leading-tight line-clamp-1">
+              {/* Project Title - Larger and Better Fitted */}
+              <h3 className="text-white font-bold text-base leading-tight line-clamp-2">
                 {testimonial.projectTitle}
               </h3>
 
-              {/* Key Result - Single Line */}
-              <div className="flex items-center gap-1">
-                <span className="text-white/80 text-xs bg-white/20 px-2 py-1 rounded-full">
+              {/* Key Result - Better Styled */}
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-white/90 text-sm bg-white/15 px-3 py-1.5 rounded-full font-medium flex-1 truncate">
                   {testimonial.results[0]}
                 </span>
-                <div className="flex items-center gap-1 ml-auto">
+                <div className="flex items-center gap-1 flex-shrink-0">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-3 h-3 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-white/30'}`}
+                      className={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-white/30'}`}
                     />
                   ))}
                 </div>
